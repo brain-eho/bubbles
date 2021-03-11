@@ -237,7 +237,7 @@ var agecatCenters = { // Center locations of the bubbles.
   };
 
     var facebookTitleX = {  // X locations of the year titles.
-    'Vertrauen sie der Social Media Plattform Facebook?': 500, 
+    'Vertrauen Sie der Social Media Plattform Facebook?': 500, 
     'Weiss nicht': 150,
     'Ja': 270,
     'Eher Ja': 380, 
@@ -246,7 +246,7 @@ var agecatCenters = { // Center locations of the bubbles.
   };
      
     var facebookTitleY = {  // Y locations of the year titles.
-    'Vertrauen sie der Social Media Plattform Facebook?': 35, 
+    'Vertrauen Sie der Social Media Plattform Facebook?': 35, 
     'Weiss nicht': 70,
     'Ja': 70, 
     'Eher Ja': 70, 
@@ -255,8 +255,58 @@ var agecatCenters = { // Center locations of the bubbles.
   };  
     
     
+      
+    var instagramCenters = { // Center locations of the bubbles. 
+    '0': { x: 220, y: height / 2  },
+    '1': { x: 320, y: height / 2  },
+    '2': { x: 420, y: height / 2  },
+    '3': { x: 600, y: height / 2  },
+    '4': { x: 800, y: height / 2  }
+  
+  };
+
+    var instagramTitleX = {  // X locations of the year titles.
+    'Vertrauen Sie der Social Media Plattform Instagram?': 500, 
+    'Weiss nicht': 150,
+    'Ja': 270,
+    'Eher Ja': 380, 
+    'Eher Nein': 570, 
+    'Nein': 850
+  };
+     
+    var instagramTitleY = {  // Y locations of the year titles.
+    'Vertrauen Sie der Social Media Plattform Instagram?': 35, 
+    'Weiss nicht': 70,
+    'Ja': 70, 
+    'Eher Ja': 70, 
+    'Eher Nein': 70,
+    'Nein': 70
+  };  
+      
+
+     var cookiesCenters = { // Center locations of the bubbles. 
+    '1': { x: 220, y: height / 2  },
+    '2': { x: 420, y: height / 2  },
+    '3': { x: 600, y: height / 2  },
+    '4': { x: 800, y: height / 2  }
+  
+  };
+
+  var cookiesTitleX = {  // X locations of the year titles.
+    '"Ich lösche meine Cookies regelmässig."': 500,
+    'Stimmt ganz': 150,
+    'Stimmt eher': 350, 
+    'Stimmt eher nicht': 600, 
+    'Stimmt nicht': 850
+  };
     
-    
+  var cookiesTitleY = {  // Y locations of the year titles.
+    '"Ich lösche meine Cookies regelmässig."': 35, 
+    'Stimmt ganz': 70,
+    'Stimmt eher': 70, 
+    'Stimmt eher nicht': 70, 
+    'Stimmt nicht': 70
+  };  
     
     
  /* ------------------------------------------------------------------*/    
@@ -332,8 +382,14 @@ var agecatCenters = { // Center locations of the bubbles.
         desktext: d.nachttisch, 
         
         abandon: d.verzichtcat, 
+        
+        cookies: d.cookiescat,
+        cookiestext: d.kekse,
           
         facebook: d.facebcat, 
+        instagram: d.instacat, 
+          
+       
           
         x: Math.random() * 900,
         y: Math.random() * 800
@@ -433,6 +489,8 @@ var agecatCenters = { // Center locations of the bubbles.
     hideDesk();  
     hideAbandon();
     hideFacebook();
+    hideInstagram();
+    hideCookies();
       
     force.on('tick', function (e) {
       bubbles.each(moveToCenter(e.alpha))
@@ -477,6 +535,8 @@ Die Positionierung basiert auf dem alpha Parameter des force layouts und wird kl
      hideDesk(); 
      hideAbandon();
      hideFacebook();
+     hideInstagram();
+     hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToAgecat(e.alpha))
@@ -527,6 +587,8 @@ function moveToAgecat(alpha) {
       hideDesk(); 
       hideAbandon();
       hideFacebook();
+      hideInstagram();
+      hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToSex(e.alpha))
@@ -577,6 +639,8 @@ function moveToAgecat(alpha) {
     hideDesk(); 
       hideAbandon();
       hideFacebook();
+      hideInstagram();
+      hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToScreentime(e.alpha))
@@ -628,6 +692,8 @@ function moveToAgecat(alpha) {
     hideDesk();  
       hideAbandon();
       hideFacebook();
+      hideInstagram();
+      hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToConcern(e.alpha))
@@ -679,6 +745,8 @@ function moveToAgecat(alpha) {
     hideConcern();
       hideAbandon();
       hideFacebook();
+      hideInstagram();
+      hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToDesk(e.alpha))
@@ -729,6 +797,8 @@ function moveToAgecat(alpha) {
     hideScreentime();
         hideDesk();
         hideFacebook();
+        hideInstagram();
+        hideCookies();
 
     force.on('tick', function (e) {
       bubbles.each(moveToAbandon(e.alpha))
@@ -780,6 +850,8 @@ function moveToAbandon(alpha) {
     hideScreentime();
      hideDesk();   
         hideAbandon();
+        hideInstagram();
+        hideCookies();
        
 
     force.on('tick', function (e) {
@@ -817,7 +889,120 @@ function moveToFacebook(alpha) {
       .text(function (d) { return d; });
     }   
     
+  //* ------------------------------------------------------------------
+//
+// Instagram
+//
+// -----------------------------------------------------------------*/ 
     
+    function splitBubblesintoInstagram() {
+    showInstagram();
+    hideAgecat();
+    hideSex();
+    hideConcern();
+    hideScreentime();
+    hideDesk();   
+    hideAbandon();
+    hideFacebook();
+    hideCookies();
+       
+
+    force.on('tick', function (e) {
+      bubbles.each(moveToInstagram(e.alpha))
+        .attr('cx', function (d) { return d.x; })
+        .attr('cy', function (d) { return d.y; });
+    });
+
+    force.start();
+  }
+    
+function moveToInstagram(alpha) {
+    return function (d) {
+      var target = instagramCenters[d.instagram];
+      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+    };
+  }
+
+  function hideInstagram() {
+    svg.selectAll('.instagram').remove();
+  }
+
+  function showInstagram() {
+
+    var instagramData = d3.keys(instagramTitleX);
+    var instagram = svg.selectAll('.instagram')
+      .data(instagramData);
+
+    instagram.enter().append('text')
+      .attr('class', 'instagram')
+      .attr('x', function (d) { return instagramTitleX[d]; })
+      .attr('y', function (d) { return instagramTitleY[d]; })
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+    }   
+        
+
+
+//* ------------------------------------------------------------------
+//
+// Cookies
+//
+// -----------------------------------------------------------------*/
+    
+  function splitBubblesintoCookies() {
+    showCookies();
+    hideSex();
+    hideAgecat();
+    hideScreentime();
+    hideDesk();  
+    hideAbandon();
+    hideFacebook();
+    hideInstagram();
+    hideConcern();
+
+    force.on('tick', function (e) {
+      bubbles.each(moveToCookies(e.alpha))
+        .attr('cx', function (d) { return d.x; })
+        .attr('cy', function (d) { return d.y; });
+    });
+
+    force.start();
+  }
+
+    
+    
+ 
+    
+    
+  function moveToCookies(alpha) {
+    return function (d) {
+      var target = cookiesCenters[d.cookies];
+      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+    };
+  }
+
+  function hideCookies() {
+    svg.selectAll('.cookies').remove();
+  }
+
+  function showCookies() {
+      
+      
+      
+    var cookiesData = d3.keys(cookiesTitleX);
+    var cookies = svg.selectAll('.cookies')
+      .data(cookiesData);
+
+    cookies.enter().append('text')
+      .attr('class', 'cookies')
+      .attr('x', function (d) { return cookiesTitleX[d]; })
+      .attr('y', function (d) { return cookiesTitleY[d]; })
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+    }
+
     
 //* ------------------------------------------------------------------
 //
@@ -850,6 +1035,10 @@ function moveToFacebook(alpha) {
       splitBubblesintoAbandon();
     } else if (displayName === 'facebook') {
       splitBubblesintoFacebook();
+    } else if (displayName === 'instagram') {
+      splitBubblesintoInstagram();
+    } else if (displayName === 'cookies') {
+      splitBubblesintoCookies();
     } else {
       groupBubbles();
     }
@@ -907,6 +1096,12 @@ function moveToFacebook(alpha) {
                   '</span>';
                 '<span class="name">"Vertrauen in Facebook" </span><span class="value">' +
                   d.facebook +
+                  '</span>';
+                '<span class="name">"Vertrauen in Instagram" </span><span class="value">' +
+                  d.instagram +
+                  '</span>';
+                '<span class="name">"Ich lösche meine Cookies regelmässig." </span><span class="value">' +
+                  d.cookiestext +
                   '</span>';
     tooltip2.showtooltip2(content, d3.event);
   }
